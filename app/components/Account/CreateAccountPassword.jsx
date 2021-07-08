@@ -21,10 +21,7 @@ import CopyButton from "../Utility/CopyButton";
 import {withRouter} from "react-router-dom";
 import {scroller} from "react-scroll";
 import {Notification, Tooltip} from "bitshares-ui-style-guide";
-import {
-    GoogleReCaptchaProvider,
-    GoogleReCaptcha
-} from "react-google-recaptcha-v3";
+import ReCAPTCHA from "react-google-recaptcha";
 import SettingsStore from "stores/SettingsStore";
 import MetaTag from "../Layout/MetaTag";
 
@@ -58,7 +55,6 @@ class CreateAccountPassword extends React.Component {
             ),
             refAcct: AccountStore.getState().referralAccount,
             confirm_password: "",
-            recaptcha: "",
             understand_1: false,
             understand_2: false,
             understand_3: false
@@ -68,6 +64,7 @@ class CreateAccountPassword extends React.Component {
         this.accountNameInput = null;
 
         this.scrollToInput = this.scrollToInput.bind(this);
+        this.recaptchaRef = React.createRef();
     }
 
     componentDidMount() {
@@ -98,8 +95,7 @@ class CreateAccountPassword extends React.Component {
                         data: res.result,
                         keyPhrase: res.result.brain_priv_key,
                         pub_key: res.result.pub_key,
-                        wif_priv_key: res.result.wif_priv_key,
-                        recaptcha: res.result.recaptcha
+                        wif_priv_key: res.result.wif_priv_key
                     });
                 } else if (!res || (res && res.error)) {
                     // console.log(res.error);
@@ -246,31 +242,31 @@ class CreateAccountPassword extends React.Component {
             faucetAddress = "http://3.135.40.183";
         }
 
-        fetch(faucetAddress + "/tusc/api/wallet/register_account", {
-            method: "post",
-            headers: {
-                Accept: "application/json",
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-                account_name: this.state.accountName,
-                public_key: this.state.pub_key,
-                recaptcha_response: this.state.recaptcha,
-                referrer: referralAccount
-            })
-        }).then(r =>
-            r.json().then(res => {
-                if (res && !res.error) {
-                    console.log(res.result);
-                    alert("Successfully Created!");
-                    this.props.history.push("/login");
-                } else if (!res || (res && res.error)) {
-                    alert(res.error);
-                    console.log(res.error);
-                    reject(res.error);
-                }
-            })
-        );
+        this.recaptchaRef.current.executeAsync().then(token => {
+            fetch(faucetAddress + "/tusc/api/wallet/register_account", {
+                method: "post",
+                headers: {
+                    Accept: "application/json",
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    account_name: this.state.accountName,
+                    public_key: this.state.pub_key,
+                    recaptcha_response: token,
+                    referrer: referralAccount
+                })
+            }).then(r =>
+                r.json().then(res => {
+                    if (res && !res.error) {
+                        console.log(res.result);
+                        alert("Successfully Created!");
+                        this.props.history.push("/login");
+                    } else if (!res || (res && res.error)) {
+                        alert(res.error);
+                    }
+                })
+            );
+        });
     }
 
     onRegistrarAccountChange(registrar_account) {
@@ -278,20 +274,16 @@ class CreateAccountPassword extends React.Component {
     }
 
     _onInput(value, e) {
-        if (value === "recaptcha") {
-            this.setState({[value]: e});
-        } else {
-            this.setState({
-                [value]:
-                    value === "confirm_password"
-                        ? e.target.value
-                        : !this.state[value],
-                validPassword:
-                    value === "confirm_password"
-                        ? e.target.value === this.state.wif_priv_key
-                        : this.state.validPassword
-            });
-        }
+        this.setState({
+            [value]:
+                value === "confirm_password"
+                    ? e.target.value
+                    : !this.state[value],
+            validPassword:
+                value === "confirm_password"
+                    ? e.target.value === this.state.wif_priv_key
+                    : this.state.validPassword
+        });
     }
 
     _renderAccountCreateForm() {
@@ -573,11 +565,7 @@ class CreateAccountPassword extends React.Component {
                             </div>
                         </label>
                     </div>
-                    {valid && (
-                        <GoogleReCaptcha
-                            onVerify={this._onInput.bind(this, "recaptcha")}
-                        />
-                    )}
+
                     {/* Submit button */}
                     {this.state.loading ? (
                         <LoadingIndicator type="three-bounce" />
@@ -780,49 +768,42 @@ class CreateAccountPassword extends React.Component {
 
     render() {
         let {step} = this.state;
-        // let my_accounts = AccountStore.getMyAccounts();
-        // let firstAccount = my_accounts.length === 0;
-
-        //get keys at https://www.google.com/recaptcha/about/
-        //replace site key and secret key below with your own values
-        const recaptchaCode = "6LeOYMYUAAAAADcHiQHtwC_VN7klQGLxnJr4N3x5";
         return (
-            <GoogleReCaptchaProvider
-                reCaptchaKey={recaptchaCode}
-                useRecaptchaNet="true"
+            <div
+                className="sub-content"
+                id="scrollToInput"
+                name="scrollToInput"
             >
-                <div
-                    className="sub-content"
-                    id="scrollToInput"
-                    name="scrollToInput"
-                >
-                    <MetaTag path="create-account/password" />
-                    <div>
-                        {step === 2 ? (
-                            <p
-                                style={{
-                                    fontWeight: "normal",
-                                    fontFamily:
-                                        "Roboto-Medium, arial, sans-serif",
-                                    fontStyle: "normal"
-                                }}
-                            >
-                                <Translate content={"wallet.step_" + step} />
-                            </p>
-                        ) : null}
+                <ReCAPTCHA
+                    sitekey="6LeOYMYUAAAAADcHiQHtwC_VN7klQGLxnJr4N3x5"
+                    size="invisible"
+                    ref={this.recaptchaRef}
+                />
+                <MetaTag path="create-account/password" />
+                <div>
+                    {step === 2 ? (
+                        <p
+                            style={{
+                                fontWeight: "normal",
+                                fontFamily: "Roboto-Medium, arial, sans-serif",
+                                fontStyle: "normal"
+                            }}
+                        >
+                            <Translate content={"wallet.step_" + step} />
+                        </p>
+                    ) : null}
 
-                        {step === 3 ? this._renderGetStartedText() : null}
+                    {step === 3 ? this._renderGetStartedText() : null}
 
-                        {step === 1 ? (
-                            <div>{this._renderAccountCreateForm()}</div>
-                        ) : step === 2 ? (
-                            this._renderBackup()
-                        ) : (
-                            this._renderGetStarted()
-                        )}
-                    </div>
+                    {step === 1 ? (
+                        <div>{this._renderAccountCreateForm()}</div>
+                    ) : step === 2 ? (
+                        this._renderBackup()
+                    ) : (
+                        this._renderGetStarted()
+                    )}
                 </div>
-            </GoogleReCaptchaProvider>
+            </div>
         );
     }
 }
