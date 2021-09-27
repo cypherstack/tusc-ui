@@ -9,6 +9,8 @@ import counterpart from "counterpart";
 import MarketsContainer from "../Exchange/MarketsContainer";
 import {Tabs} from "bitshares-ui-style-guide";
 
+import config from "../../config/default.json";
+
 class Explorer extends React.Component {
     constructor(props) {
         super(props);
@@ -45,12 +47,14 @@ class Explorer extends React.Component {
                     translate: "explorer.committee_members.title",
                     content: CommitteeMembers
                 },
-                {
-                    name: "markets",
-                    link: "/explorer/markets",
-                    translate: "markets.title",
-                    content: MarketsContainer
-                },
+                config.ui.display_market
+                    ? tabs.push({
+                          name: "markets",
+                          link: "/explorer/markets",
+                          translate: "markets.title",
+                          content: MarketsContainer
+                      })
+                    : null,
                 {
                     name: "fees",
                     link: "/explorer/fees",
