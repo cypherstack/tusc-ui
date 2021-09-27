@@ -1,4 +1,5 @@
 import MenuItemType from "./MenuItemType";
+import config from "../../config/default.json";
 
 class MenuDataStructure {
     /*
@@ -108,13 +109,12 @@ class MenuDataStructure {
             return item;
         };
 
-        return [
+        let menuItems = [
             allItems.login,
             allItems.create_account,
             allItems.follow,
             allItems.divider,
             allItems.dashboard,
-            allItems.market,
             allItems.explorer,
             allItems.divider,
             allItems.transfer,
@@ -143,6 +143,9 @@ class MenuDataStructure {
             allItems.prediction,
             allItems.htlc
         ];
+        if (config.ui.display_market) menuItems.push(allItems.market);
+
+        return menuItems;
     }
 
     static getAllEntries() {
