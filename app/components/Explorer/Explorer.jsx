@@ -69,7 +69,6 @@ class Explorer extends React.Component {
         const onChange = value => {
             this.props.history.push(value);
         };
-
         return (
             <Tabs
                 activeKey={this.props.location.pathname}
@@ -78,6 +77,7 @@ class Explorer extends React.Component {
                 onChange={onChange}
             >
                 {this.state.tabs.map(tab => {
+                    if (!tab) return;
                     const TabContent = tab.content;
 
                     return (
