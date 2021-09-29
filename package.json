@@ -1,14 +1,11 @@
 {
-    "name": "BitShares2-light",
-    "version": "5.0.20210720-rc1",
-    "description": "Reference UI to showcase all features of the BitShares blockchain.",
-    "homepage": "https://github.com/bitshares/bitshares-ui",
-    "author": "BitShares UI Worker <ui-dev@bitshares.org>",
+    "name": "TUSC-light",
+    "version": "0.0.1",
+    "description": "Reference UI to showcase all features of the TUSC blockchain.",
+    "homepage": "/wallet/",
+    "author": "TUSC UI Worker",
     "contributors": [
-        "Sigve Kvalsvik <kvalsvik.crypto@gmail.com>",
-        "James Calfee",
-        "Dan Larimer",
-        "Valentine Zavgorodnev <valentine.zavgorodnev@gmail.com>"
+        "RarelyCharles"
     ],
     "license": "MIT",
     "engines": {
@@ -18,7 +15,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git://github.com/bitshares/bitshares-ui"
+        "url": "git://github.com/TUSCNetwork/tusc-ui"
     },
     "main": "build/electron/index.js",
     "scripts": {
