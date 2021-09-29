@@ -1,4 +1,4 @@
-import {getFaucet, getTestFaucet} from "../branding";
+import {getFaucet} from "../branding";
 
 export const blockTradesAPIs = {
     BASE: "https://api.blocktrades.us/v2",
@@ -22,9 +22,9 @@ export const openledgerAPIs = {
 };
 
 export const rudexAPIs = {
-    BASE: "https://gateway.rudex.org/api/rudex",
+    BASE: "https://gateway.rudex.org/api/v0_1",
     COINS_LIST: "/coins",
-    NEW_DEPOSIT_ADDRESS: "/simple-api/initiate-trade"
+    NEW_DEPOSIT_ADDRESS: "/new-deposit-address"
 };
 
 export const bitsparkAPIs = {
@@ -56,7 +56,7 @@ export const citadelAPIs = {
 };
 
 export const gdex2APIs = {
-    BASE: "https://api.52bts.net/adjust",
+    BASE: "https://api.gdex.io/adjust",
     COINS_LIST: "/coins",
     ACTIVE_WALLETS: "/active-wallets",
     TRADING_PAIRS: "/trading-pairs"
@@ -64,7 +64,7 @@ export const gdex2APIs = {
 
 // Legacy Deposit/Withdraw
 export const gdexAPIs = {
-    BASE: "https://api.52bts.net",
+    BASE: "https://api.gdex.io",
     ASSET_LIST: "/gateway/asset/assetList",
     ASSET_DETAIL: "/gateway/asset/assetDetail",
     GET_DEPOSIT_ADDRESS: "/gateway/address/getAddress",
@@ -95,7 +95,8 @@ export const nodeRegions = [
     "Eastern Asia",
     "Central Asia",
     "Southeastern Asia",
-    "Australia and New Zealand",
+    "Australia",
+    "New Zealand",
     "Melanesia",
     "Polynesia",
     "Micronesia",
@@ -120,292 +121,64 @@ export const settingsAPIs = {
             location: {translate: "settings.api_closest"}
         },
         {
-            url: "ws://127.0.0.1:8090",
-            location: "Locally hosted"
-        },
-        {
-            url: "wss://nexus01.co.uk/ws",
-            region: "Northern Europe",
-            country: "England",
-            location: "Gloucester",
-            operator: "Witness: nexus01",
-            contact: "telegram:rosswlkr"
-        },
-        {
-            url: "wss://dex.iobanker.com/ws",
-            region: "Western Europe",
-            country: "Germany",
-            location: "Frankfurt",
-            operator: "Witness: iobanker-core",
-            contact: "email:admin@iobanker.com"
-        },
-        {
-            url: "wss://ws.gdex.top",
-            region: "Eastern Asia",
-            country: "China",
-            location: "Shanghai",
-            operator: "Witness: gdex-witness",
-            contact: "telegram:BrianZhang"
-        },
-        {
-            url: "wss://api.weaccount.cn",
-            region: "Eastern Asia",
-            country: "China",
-            location: "Hangzhou",
-            operator: "Witness: btspp-witness",
-            contact: "telegram:btsplusplus"
-        },
-        {
-            url: "wss://api.bts.mobi/ws",
-            region: "Northern America",
-            country: "U.S.A.",
+            url: "wss://api.tusc.network:8443",
             location: "Virginia",
-            operator: "Witness: in.abit",
-            contact: "telegram:abitmore"
-        },
-        {
-            url: "wss://btsws.roelandp.nl/ws",
-            region: "Northern Europe",
-            country: "Finland",
-            location: "Helsinki",
-            operator: "Witness: roelandp",
-            contact: "telegram:roelandp"
-        },
-        {
-            url: "wss://api.bitshares.bhuz.info/ws",
             region: "Northern America",
-            country: "Canada",
-            operator: "Witness: bhuz",
-            contact: "telegram:bhuzor"
+            country: "U.S.A."
+            //operator: "Witness: ",
+            //contact: "telegram:"
         },
         {
-            url: "wss://api.btsgo.net/ws",
-            region: "Southeastern Asia",
+            url: "wss://testnet.tusc.network:8443",
+            location: "Virginia",
+            region: "TESTNET - Northern America",
+            country: "U.S.A."
+            //operator: "Witness:",
+            //contact: "telegram:"
+        },
+        {
+            url: "wss://api.readyrhino.one",
+            location: "Virginia",
+            region: "Northern America",
+            country: "U.S.A."
+            //operator: "Witness: readyrhino",
+            //contact: "telegram:RobMcNealy"
+        },
+        {
+            url: "wss://tuscapi.gambitweb.com",
+            location: "Northern California",
+            region: "Northern America",
+            country: "U.S.A."
+            //operator: "Witness: attero-tusc",
+            //contact: "telegram:bendubois26"
+        },
+        {
+            url: "wss://api.cryptotusc.com",
             location: "Singapore",
-            operator: "Witness: xn-delegate",
-            contact: "wechat:Necklace"
+            region: "Asia Pacific",
+            country: "Singapore"
+            //operator: "Witness: attero-tusc",
+            //contact: "telegram: bendubois26"
         },
         {
-            url: "wss://bts.open.icowallet.net/ws",
-            region: "Eastern Asia",
-            country: "China",
-            location: "Hangzhou",
-            operator: "Witness: magicwallet.witness",
-            contact: "telegram:plus_wave"
-        },
-        {
-            url: "wss://freedom.bts123.cc:15138/",
-            region: "Eastern Asia",
-            country: "China",
-            location: "Changsha",
-            operator: "Witness: delegate.freedom",
-            contact: "telegram:eggplant"
-        },
-        {
-            url: "wss://bitshares.bts123.cc:15138/",
-            region: "Eastern Asia",
-            country: "China",
-            location: "Hangzhou",
-            operator: "Witness: delegate.freedom",
-            contact: "telegram:eggplant"
-        },
-        // TODO the owner said it's temporarily closed. Recheck later.
-        //{
-        //    url: "wss://api.bts.ai",
-        //    region: "Eastern Asia",
-        //    country: "China",
-        //    location: "Beijing",
-        //    operator: "Witness: witness.hiblockchain",
-        //    contact: "telegram:vianull;wechat:strugglingl"
-        //},
-        {
-            url: "wss://api.61bts.com",
-            region: "Eastern Asia",
-            country: "China",
-            location: "Shandong",
-            operator: "Witness: liuye",
-            contact: "email:work@akawa.ink"
-        },
-        {
-            url: "wss://api-us.61bts.com",
-            region: "Northern America",
-            country: "USA",
-            location: "St. Louis",
-            operator: "Witness: liuye",
-            contact: "email:work@akawa.ink"
-        },
-        {
-            url: "wss://api.dex.trading/",
-            region: "Western Europe",
-            country: "France",
-            location: "Paris",
-            operator: "Witness: zapata42-witness",
-            contact: "telegram:Zapata_42"
-        },
-        {
-            url: "wss://api.bitshares.org/ws",
-            region: "Western Europe",
-            country: "France",
-            location: "",
-            operator: "bitshares.org",
-            contact: ""
-        },
-        {
-            url: "wss://us.api.bitshares.org/ws",
-            region: "Western Europe",
-            country: "France",
-            location: "",
-            operator: "bitshares.org",
-            contact: ""
-        },
-        {
-            url: "wss://asia.api.bitshares.org/ws",
-            region: "Western Europe",
-            country: "France",
-            location: "",
-            operator: "bitshares.org",
-            contact: ""
-        },
-        // TODO node is out of sync, recheck later
-        //{
-        //    url: "wss://citadel.li/node",
-        //    region: "Western Europe",
-        //    country: "Iceland",
-        //    location: "Reykjavik",
-        //    operator: "CITADEL",
-        //    contact: "email:citadel.li;support"
-        //},
-        {
-            url: "wss://api-bts.liondani.com/ws",
-            region: "Western Europe",
-            country: "Germany",
-            location: "Falkenstein",
-            operator: "Witness: liondani",
-            contact: "telegram:liondani"
-        },
-        {
-            url: "wss://public.xbts.io/ws",
-            region: "Western Europe",
-            country: "Germany",
-            location: "Nuremberg",
-            operator: "Witness: xbtsio-wallet",
-            contact: "telegram: xbtsio"
-        },
-        {
-            url: "wss://cloud.xbts.io/ws",
-            region: "Northern America",
-            country: "U.S.A.",
-            location: "VG, Ashburn",
-            operator: "Witness: xbtsio-wallet",
-            contact: "telegram: xbtsio"
-        },
-        {
-            url: "wss://node.xbts.io/ws",
-            region: "Western Europe",
-            country: "Germany",
-            location: "Falkenstein",
-            operator: "Witness: xbtsio-wallet",
-            contact: "telegram: xbtsio"
-        },
-        {
-            url: "wss://api.pindd.club",
-            region: "Northern America",
-            country: "U.S.A.",
-            location: "Seattle, CA",
-            operator: "Witness: gbac-ety001",
-            contact: "email:work@akawa.ink"
-        },
-        {
-            url: "wss://api.cnvote.vip:888/",
-            region: "Eastern Asia",
-            country: "China",
-            location: "Zhejiang",
-            operator: "Witness: ioex",
-            contact: "wechat:xiaoyuan_409"
-        },
-        {
-            url: "wss://hongkong.bitshares.im/ws",
-            region: "East Asia",
-            country: "China",
-            location: "Hong Kong",
-            operator: "Witness: clone",
-            contact: "telegram: yexiao"
-        },
-        {
-            url: "wss://singapore.bitshares.im/ws",
-            region: "Southeast Asia",
-            country: "Singapore",
-            location: "Singapore",
-            operator: "Witness: clone",
-            contact: "telegram: yexiao"
-        },
-        {
-            url: "wss://newyork.bitshares.im/ws",
-            region: "Northern America",
-            country: "U.S.A.",
-            location: "New York",
-            operator: "Witness: clone",
-            contact: "telegram: yexiao"
-        },
-        // Testnet
-        {
-            url: "wss://node.testnet.bitshares.eu",
-            region: "TESTNET - Western Europe",
-            country: "Germany",
-            location: "Frankfurt",
-            operator: "BitShares Europe",
-            contact: "telegram:xeroc"
-        },
-        {
-            url: "wss://testnet.dex.trading/",
-            region: "TESTNET - Western Europe",
-            country: "France",
-            location: "Paris",
-            operator: "Witness: zapata42-witness",
-            contact: "telegram:Zapata_42"
-        },
-        {
-            url: "wss://testnet.xbts.io/ws",
-            region: "TESTNET - Europe",
-            country: "Germany",
-            location: "Nuremberg",
-            operator: "Witness: xbtsio-wallet",
-            contact: "telegram: xbtsio"
-        },
-        {
-            url: "wss://testnet.bitshares.im/ws",
-            region: "Eastern Asia",
-            country: "Japan",
-            location: "Tokyo",
-            operator: "Witness: clone",
-            contact: "telegram: yexiao"
-        },
-        {
-            url: "wss://api-testnet.61bts.com/ws",
-            region: "Eastern Asia",
-            country: "China",
-            location: "Shandong",
-            operator: "Witness: liuye",
-            contact: "email:work@akawa.ink"
-        },
-        {
-            url: "wss://api-us-testnet.61bts.com/ws",
-            region: "Northern America",
-            country: "USA",
-            location: "St. Louis",
-            operator: "Witness: liuye",
-            contact: "email:work@akawa.ink"
+            url: "wss://testnetapi.cryptotusc.com",
+            location: "Ohio",
+            region: "TESTNET - Northern America",
+            country: "U.S.A."
+            //operator: "Witness: attero-tusc",
+            //contact: "telegram: bendubois26"
         }
     ],
     ES_WRAPPER_LIST: [
         {
-            url: "https://api.bitshares.ws/openexplorer",
-            region: "Western Europe",
-            country: "Germany",
-            operator: "blocksights.info",
-            contact: "bitshares:blocksights"
+            url: "https://elasticsearch.tusc.network",
+            location: "Virginia",
+            region: "Northern America",
+            country: "U.S.A."
+            //operator: "Witness: ",
+            //contact: "telegram:"
         }
     ],
     DEFAULT_FAUCET: getFaucet().url,
-    TESTNET_FAUCET: getTestFaucet().url
+    TESTNET_FAUCET: "http://3.135.40.183"
 };
