@@ -175,7 +175,7 @@ class FeeAssetSelector extends React.Component {
     _getSelectableAssets() {
         return this.state.assets
             ? this.state.assets
-            : [this._getAsset().get("symbol")];
+            : [this._getAsset() ? this._getAsset().get("symbol") : null];
     }
 
     async _syncAvailableAssets(opened, account = this.props.account) {
@@ -353,7 +353,9 @@ class FeeAssetSelector extends React.Component {
                             )}
                             style={{width: "130px"}}
                             selectStyle={{width: "100%"}}
-                            value={currentAsset.get("symbol")}
+                            value={
+                                currentAsset ? currentAsset.get("symbol") : null
+                            }
                             assets={
                                 canChangeFeeParams
                                     ? Immutable.List(selectableAssets)
