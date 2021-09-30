@@ -10,10 +10,8 @@ import {Apis} from "bitsharesjs-ws";
  * @private
  */
 function _isTestnet() {
-    const testnet =
-        "39f5e2ede1f8bc1a3a54a7914414e3779e33193f1f5693510e73cb7a87617447"; // just for the record
     const mainnet =
-        "4018d7844c78f6a6c41c6a552b898022310fc5dec06da467ee7905a8dad512c8";
+        "eb938e2a955e39e335120d0a99f3b9f8c04a9ed5690275ea5037d6bbadfc6cf3";
 
     // treat every other chain as testnet
     return Apis.instance().chain_id !== mainnet;
@@ -24,7 +22,7 @@ function _isTestnet() {
  * @returns {string}
  */
 export function getWalletName() {
-    return "BitShares";
+    return "TUSC";
 }
 
 /**
@@ -32,7 +30,7 @@ export function getWalletName() {
  * @returns {string}
  */
 export function getWalletURL() {
-    return "https://wallet.bitshares.org";
+    return "https://wallet.tusc.network";
 }
 
 /**
@@ -42,7 +40,7 @@ export function getWalletURL() {
  */
 export function getFaucet() {
     return {
-        url: "https://faucet.bitshares.eu/onboarding", // 2017-12-infrastructure worker proposal
+        url: "https://faucet.tusc.network",
         show: true,
         editable: false,
         referrer: "onboarding.bitshares.foundation"
@@ -336,7 +334,7 @@ export function getConfigurationAsset() {
     return {
         symbol: assetSymbol,
         explanation:
-            "This asset is used for decentralized configuration of the BitShares UI placed under bitshares.org."
+            "This asset is used for decentralized configuration of the TUSC UI placed under tusc.network."
     };
 }
 

@@ -87,7 +87,7 @@
     },
     "browsersList": "electron 1.7",
     "build": {
-        "productName": "BitShares",
+        "productName": "TUSC",
         "appId": "org.bitshares.graphene",
         "files": [
             "build/electron",
@@ -128,7 +128,7 @@
                 "AppImage",
                 "snap"
             ],
-            "synopsis": "BitShares: Cryptocurrency and Decentralized Exchange"
+            "synopsis": "TUSC: High Speed, Low Cost Crypto Payments for Retailers."
         },
         "directories": {
             "buildResources": "resources",
