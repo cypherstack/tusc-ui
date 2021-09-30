@@ -25,6 +25,8 @@ import NewsHeadline from "components/Layout/NewsHeadline";
 
 import {Route, Switch, Redirect} from "react-router-dom";
 
+import config from "config/default.json";
+
 // Nested route components
 import Page404 from "./components/Page404/Page404";
 
@@ -643,10 +645,14 @@ class App extends React.Component {
                             hideModal={this.hideBrowserSupportModal}
                             showModal={this.showBrowserSupportModal}
                         />
-                        <GatewaySelectorModal
-                            visible={this.state.isGatewaySelectorModalVisible}
-                            hideModal={this.hideGatewaySelectorModal}
-                        />
+                        {config.gateways.enable_gateways ? (
+                            <GatewaySelectorModal
+                                visible={
+                                    this.state.isGatewaySelectorModalVisible
+                                }
+                                hideModal={this.hideGatewaySelectorModal}
+                            />
+                        ) : null}
                     </div>
                 </BodyClassName>
             </div>

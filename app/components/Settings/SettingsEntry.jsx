@@ -8,6 +8,8 @@ import FeeAssetSettings from "./FeeAssetSettings";
 import {Checkbox, Select, Input, Form, Button} from "bitshares-ui-style-guide";
 import GatewaySelectorModal from "../Gateways/GatewaySelectorModal";
 
+import config from "../../config/default.json";
+
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -181,11 +183,15 @@ export default class SettingsEntry extends React.Component {
                 value = true;
                 component = (
                     <React.Fragment>
-                        <Button
-                            onClick={this.showGatewaySelectorModal.bind(this)}
-                        >
-                            Choose external Service Providers
-                        </Button>
+                        {config.gateways.enable_gateways && (
+                            <Button
+                                onClick={this.showGatewaySelectorModal.bind(
+                                    this
+                                )}
+                            >
+                                Choose external Service Providers
+                            </Button>
+                        )}
                         {this.state.isGatewaySelectorModalRendered && (
                             <GatewaySelectorModal
                                 visible={

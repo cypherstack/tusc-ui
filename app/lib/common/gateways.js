@@ -15,6 +15,7 @@ import {
 import {allowedGateway} from "branding";
 import {isGatewayTemporarilyDisabled} from "../chain/onChainConfig";
 import SettingsStore from "stores/SettingsStore";
+import config from "../../config/default.json";
 
 const _isEnabled = gatewayKey => {
     return async function(options = {}) {
@@ -155,7 +156,7 @@ export const availableGateways = {
         id: "GDEX",
         name: "GDEX",
         baseAPI: gdex2APIs,
-        isEnabled: _isEnabled("GDEX"),
+        isEnabled: config.gateways.enable_gateways ? _isEnabled("GDEX") : false,
         options: {
             enabled: false,
             selected: false
@@ -166,7 +167,9 @@ export const availableGateways = {
         id: "XBTSX",
         name: "XBTS",
         baseAPI: xbtsxAPIs,
-        isEnabled: _isEnabled("XBTSX"),
+        isEnabled: config.gateways.enable_gateways
+            ? _isEnabled("XBTSX")
+            : false,
         isSimple: true,
         selected: false,
         addressValidatorMethod: "POST",
@@ -197,7 +200,7 @@ export const availableBridges = {
     TRADE: {
         id: "TRADE",
         name: "Blocktrades",
-        isEnabled: _isEnabled("TRADE"),
+        isEnabled: config.bridges.enable_bridges ? _isEnabled("TRADE") : false,
         landing: "https://blocktrades.us"
     }
 };

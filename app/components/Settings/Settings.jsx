@@ -15,6 +15,7 @@ import AccessSettings from "./AccessSettings";
 import {set} from "lodash-es";
 import {getAllowedLogins, getFaucet} from "../../branding";
 import {Input, Form} from "bitshares-ui-style-guide";
+import config from "../../config/default.json";
 
 class Settings extends React.Component {
     constructor(props) {
@@ -31,7 +32,6 @@ class Settings extends React.Component {
             "locale",
             "unit",
             "fee_asset",
-            "filteredServiceProviders",
             "browser_notifications",
             "showSettles",
             "walletLockTimeout",
@@ -40,6 +40,8 @@ class Settings extends React.Component {
             "viewOnlyMode",
             "showProposedTx"
         ];
+        if (config.gateways.enable_gateways)
+            general.push("filteredServiceProviders");
         // disable that the user can change login method if only one is allowed
         if (getAllowedLogins().length > 1) general.push("passwordLogin");
         general.push("reset");

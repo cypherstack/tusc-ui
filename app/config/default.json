@@ -1,5 +1,11 @@
 {
     "ui": {
         "display_market": false
+    },
+    "gateways": {
+        "enable_gateways": false
+    },
+    "bridges": {
+        "enable_bridges": false
     }
 }
