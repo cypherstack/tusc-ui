@@ -121,7 +121,6 @@ class MenuDataStructure {
             allItems.deposit,
             allItems.withdraw,
             allItems.account_voting,
-            allItems.spotlight,
             allItems.insight,
             allItems.divider,
             // allItems.account_voting,
@@ -144,6 +143,7 @@ class MenuDataStructure {
             allItems.htlc
         ];
         if (config.ui.display_market) menuItems.push(allItems.market);
+        if (config.ui.display_spotlight) menuItems.push(allItems.spotlight);
 
         return menuItems;
     }

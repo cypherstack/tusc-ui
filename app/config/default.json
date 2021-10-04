@@ -1,11 +1,14 @@
 {
     "ui": {
-        "display_market": false
-    },
-    "gateways": {
-        "enable_gateways": false
+        "display_market": false,
+        "display_margin_positions": false,
+        "display_open_orders": false,
+        "display_spotlight": false
     },
     "bridges": {
         "enable_bridges": false
+    },
+    "gateways": {
+        "enable_gateways": false
     }
 }
