@@ -413,7 +413,12 @@ class WalletDb extends BaseStore {
             if (fromWif) {
                 key = {
                     privKey: fromWif,
-                    pubKey: fromWif.toPublicKey().toString()
+                    pubKey:
+                        "TUSC" +
+                        fromWif
+                            .toPublicKey()
+                            .toString()
+                            .substring(3)
                 };
             }
 
