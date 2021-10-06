@@ -18,7 +18,7 @@ import WalletManagerStore from "stores/WalletManagerStore";
 import cnames from "classnames";
 import TotalBalanceValue from "../Utility/TotalBalanceValue";
 import ReactTooltip from "react-tooltip";
-import {Apis} from "bitsharesjs-ws";
+import {Apis} from "tuscjs-ws";
 import AccountImage from "../Account/AccountImage";
 import {ChainStore} from "bitsharesjs";
 import WithdrawModal from "../Modal/WithdrawModalNew";

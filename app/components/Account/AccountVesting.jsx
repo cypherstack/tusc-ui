@@ -4,7 +4,7 @@ import FormattedAsset from "../Utility/FormattedAsset";
 import {ChainStore} from "bitsharesjs";
 import utils from "common/utils";
 import WalletActions from "actions/WalletActions";
-import {Apis} from "bitsharesjs-ws";
+import {Apis} from "tuscjs-ws";
 import {Button} from "bitshares-ui-style-guide";
 import PaginatedList from "components/Utility/PaginatedList";
 import SearchInput from "../Utility/SearchInput";

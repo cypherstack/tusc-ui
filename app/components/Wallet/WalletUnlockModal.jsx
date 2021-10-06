@@ -12,7 +12,7 @@ import WalletActions from "actions/WalletActions";
 import BackupActions, {restore, backup} from "actions/BackupActions";
 import AccountActions from "actions/AccountActions";
 import SettingsActions from "actions/SettingsActions";
-import {Apis} from "bitsharesjs-ws";
+import {Apis} from "tuscjs-ws";
 import {
     Modal,
     Button,

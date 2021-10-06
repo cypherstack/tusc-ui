@@ -1,5 +1,5 @@
 import alt from "alt-instance";
-import {Apis} from "bitsharesjs-ws";
+import {Apis} from "tuscjs-ws";
 import WalletApi from "api/WalletApi";
 import WalletDb from "stores/WalletDb";
 import {ChainStore, hash, FetchChainObjects} from "bitsharesjs";

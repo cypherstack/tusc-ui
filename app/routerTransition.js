@@ -1,4 +1,4 @@
-import {Apis, Manager} from "bitsharesjs-ws";
+import {Apis, Manager} from "tuscjs-ws";
 import {ChainStore} from "bitsharesjs";
 import hirestime from "hirestime";
 

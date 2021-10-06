@@ -13,7 +13,7 @@ import assetUtils from "common/asset_utils";
 import utils from "common/utils";
 import FormattedTime from "../Utility/FormattedTime";
 import {ChainStore} from "bitsharesjs";
-import {Apis} from "bitsharesjs-ws";
+import {Apis} from "tuscjs-ws";
 import {CallOrder, CollateralBid, FeedPrice} from "common/MarketClasses";
 import Page404 from "../Page404/Page404";
 import FeePoolOperation from "../Account/FeePoolOperation";

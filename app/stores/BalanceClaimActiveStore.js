@@ -2,7 +2,7 @@ import alt from "alt-instance";
 import Immutable from "immutable";
 import BaseStore from "stores/BaseStore";
 import {key} from "bitsharesjs";
-import {Apis} from "bitsharesjs-ws";
+import {Apis} from "tuscjs-ws";
 import iDB from "idb-instance";
 import BalanceClaimActiveActions from "actions/BalanceClaimActiveActions";
 import TransactionConfirmActions from "actions/TransactionConfirmActions";
