@@ -260,11 +260,11 @@ function estimateFee(op_type, options, globalObject, data = {}) {
                     let pKey = _privKey || PrivateKey.fromWif(privKey);
                     if (_privKey) _privKey = pKey;
                     let memoFromKey =
-                        "GPH6B1taKXkDojuC1qECjvC7g186d8AdeGtz8wnqWAsoRGC6RY8Rp";
+                        "TUSC6B1taKXkDojuC1qECjvC7g186d8AdeGtz8wnqWAsoRGC6RY8Rp";
 
                     // Memos are optional, but if you have one you need to encrypt it
                     let memoToKey =
-                        "GPH8eLeqSZZtB1YHdw7KjQxRSRmaKAseCxhUSqaLxUdqvdGpp6nck";
+                        "TUSC8eLeqSZZtB1YHdw7KjQxRSRmaKAseCxhUSqaLxUdqvdGpp6nck";
 
                     /* Encryption is very expensive so we cache the result for reuse */
                     let message;
