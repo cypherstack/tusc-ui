@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "alt-react";
-import {ChainStore} from "bitsharesjs";
+import {ChainStore} from "tuscjs";
 import Translate from "react-translate-component";
 import cnames from "classnames";
 import MarketsStore from "stores/MarketsStore";

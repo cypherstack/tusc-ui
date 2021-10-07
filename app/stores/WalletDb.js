@@ -12,7 +12,7 @@ import TransactionConfirmActions from "actions/TransactionConfirmActions";
 import WalletUnlockActions from "actions/WalletUnlockActions";
 import PrivateKeyActions from "actions/PrivateKeyActions";
 import AccountActions from "actions/AccountActions";
-import {ChainStore, PrivateKey, key, Aes} from "bitsharesjs";
+import {ChainStore, PrivateKey, key, Aes} from "tuscjs";
 import {Apis, ChainConfig} from "tuscjs-ws";
 import AddressIndex from "stores/AddressIndex";
 import SettingsActions from "actions/SettingsActions";

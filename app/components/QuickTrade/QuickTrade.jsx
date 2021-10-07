@@ -21,10 +21,10 @@ import {
     getOrders,
     getFees
 } from "./QuickTradeHelper";
-import {ChainStore, FetchChain} from "bitsharesjs";
+import {ChainStore, FetchChain} from "tuscjs";
 import {debounce} from "lodash-es";
 import AssetActions from "actions/AssetActions";
-import {ChainValidation} from "bitsharesjs";
+import {ChainValidation} from "tuscjs";
 import {lookupAssets} from "../Exchange/MarketPickerHelpers";
 import counterpart from "counterpart";
 import LinkToAccountById from "../Utility/LinkToAccountById";

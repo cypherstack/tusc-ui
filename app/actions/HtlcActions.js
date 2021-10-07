@@ -2,7 +2,7 @@ import alt from "alt-instance";
 import {Apis} from "tuscjs-ws";
 import WalletApi from "api/WalletApi";
 import WalletDb from "stores/WalletDb";
-import {ChainStore, hash, FetchChainObjects} from "bitsharesjs";
+import {ChainStore, hash, FetchChainObjects} from "tuscjs";
 
 const calculateHash = (cipher, preimage) => {
     let preimage_hash_calculated = null;

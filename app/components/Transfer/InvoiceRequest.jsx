@@ -1,5 +1,5 @@
 import React from "react";
-import {ChainStore} from "bitsharesjs";
+import {ChainStore} from "tuscjs";
 import AccountSelector from "../Account/AccountSelector";
 import AssetSelect from "../Utility/AssetSelect";
 import {compress} from "lzma";

@@ -1,5 +1,5 @@
 import {Apis} from "tuscjs-ws";
-import {ChainStore, FetchChain} from "bitsharesjs";
+import {ChainStore, FetchChain} from "tuscjs";
 import {
     Tabs,
     Collapse,

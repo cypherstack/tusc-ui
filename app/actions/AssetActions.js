@@ -3,10 +3,10 @@ import {Apis} from "tuscjs-ws";
 import utils from "common/utils";
 import WalletApi from "api/WalletApi";
 import WalletDb from "stores/WalletDb";
-import {ChainStore} from "bitsharesjs";
+import {ChainStore} from "tuscjs";
 import big from "bignumber.js";
 import {gatewayPrefixes} from "common/gateways";
-import {price} from "bitsharesjs/es/serializer/src/operations";
+import {price} from "tuscjs/es/serializer/src/operations";
 let inProgress = {};
 
 class AssetActions {

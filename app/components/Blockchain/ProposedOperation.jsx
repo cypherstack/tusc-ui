@@ -6,7 +6,7 @@ import counterpart from "counterpart";
 import utils from "common/utils";
 import LinkToAccountById from "../Utility/LinkToAccountById";
 import LinkToAssetById from "../Utility/LinkToAssetById";
-import {ChainStore, ChainTypes as grapheneChainTypes} from "bitsharesjs";
+import {ChainStore, ChainTypes as grapheneChainTypes} from "tuscjs";
 // import account_constants from "chain/account_constants";
 const {operations} = grapheneChainTypes;
 import PropTypes from "prop-types";

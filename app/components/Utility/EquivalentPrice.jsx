@@ -7,7 +7,7 @@ import MarketStatsCheck from "./MarketStatsCheck";
 import MarketsStore from "stores/MarketsStore";
 import MarketUtils from "common/market_utils";
 import AssetWrapper from "./AssetWrapper";
-import {ChainStore} from "bitsharesjs";
+import {ChainStore} from "tuscjs";
 
 const getFinalPrice = function(
     fromAsset,

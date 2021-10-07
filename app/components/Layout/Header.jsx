@@ -20,7 +20,7 @@ import TotalBalanceValue from "../Utility/TotalBalanceValue";
 import ReactTooltip from "react-tooltip";
 import {Apis} from "tuscjs-ws";
 import AccountImage from "../Account/AccountImage";
-import {ChainStore} from "bitsharesjs";
+import {ChainStore} from "tuscjs";
 import WithdrawModal from "../Modal/WithdrawModalNew";
 import {List} from "immutable";
 import DropDownMenu from "./HeaderDropdown";

@@ -11,7 +11,7 @@ import TransactionConfirmStore from "stores/TransactionConfirmStore";
 import LoadingIndicator from "../LoadingIndicator";
 import Translate from "react-translate-component";
 import counterpart from "counterpart";
-import {ChainStore, FetchChain, key} from "bitsharesjs";
+import {ChainStore, FetchChain, key} from "tuscjs";
 import ReactTooltip from "react-tooltip";
 import utils from "common/utils";
 import SettingsActions from "actions/SettingsActions";

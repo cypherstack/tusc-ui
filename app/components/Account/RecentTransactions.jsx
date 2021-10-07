@@ -5,11 +5,7 @@ import BindToChainState from "../Utility/BindToChainState";
 import utils from "common/utils";
 import JSONModal from "components/Modal/JSONModal";
 import {Icon as AntIcon} from "bitshares-ui-style-guide";
-import {
-    ChainTypes as grapheneChainTypes,
-    FetchChain,
-    ChainStore
-} from "bitsharesjs";
+import {ChainTypes as grapheneChainTypes, FetchChain, ChainStore} from "tuscjs";
 //import ps from "perfect-scrollbar";
 import counterpart from "counterpart";
 import Icon from "../Icon/Icon";

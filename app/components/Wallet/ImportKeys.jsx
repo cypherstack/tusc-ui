@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "alt-react";
 import cname from "classnames";
-import {PrivateKey, Aes, PublicKey, FetchChain, hash} from "bitsharesjs";
+import {PrivateKey, Aes, PublicKey, FetchChain, hash} from "tuscjs";
 import AccountApi from "api/accountApi";
 import {ChainConfig} from "tuscjs-ws";
 import PrivateKeyStore from "stores/PrivateKeyStore";
