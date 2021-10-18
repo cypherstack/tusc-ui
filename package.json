@@ -203,6 +203,7 @@
         "steem-js-api": "^0.7.1",
         "string-similarity": "^2.0.0",
         "tcomb": "2.5.2",
+        "tusc-report": "git+https://github.com/TUSCNetwork/tusc-report.git",
         "tuscjs": "git+https://github.com/TUSCNetwork/tuscjs.git",
         "tuscjs-ws": "git+https://github.com/TUSCNetwork/tuscjs-ws.git",
         "whatwg-fetch": "^2.0.1",
