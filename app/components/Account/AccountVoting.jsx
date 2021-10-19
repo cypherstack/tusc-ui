@@ -144,9 +144,10 @@ class AccountVoting extends React.Component {
         console.log("state tickets: ", this.state.tickets);
 
         const unlockableTickets = this.state.tickets
-        .filter(ticket => ticket.current_type === 'lock_180_days' ||
-            ticket.current_type === 'lock_360_days' ||
-            ticket.current_type === 'lock_720_days');
+        .filter(ticket => ticket.value > 0 &&
+            ticket.status !== 'withdrawing' &&
+            ticket.target_type !== 'lock_forever' &&
+            ticket.current_type !== 'lock_forever');
         this.state.unlockableTickets = unlockableTickets;
         console.log("state unlockableTickets: ", this.state.unlockableTickets);
     }
