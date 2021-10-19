@@ -57,11 +57,6 @@ class UnlockModal extends React.Component {
             this.props.unlockableTickets,
         ).then(() => {
             console.log("tickets unlocked");
-            // this.state.amountAsset.setAmount({sats: 0});
-            // this.setState({
-            //     amount: 0,
-            //     numberOfPeriods: 1
-            // });
         });
         this.props.hideModal();
     }
