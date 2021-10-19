@@ -877,7 +877,6 @@ const ApplicationApi = {
 
         console.log("Tickets in unlock: ", tickets);
         for(let i = 0; i < tickets.length; i++){
-            console.log("Ticket: ", tickets[i]);
             let transactionBuilder = new TransactionBuilder();
             let ticket = tickets[i];
             let op = transactionBuilder.get_type_operation("ticket_update", {
@@ -887,15 +886,15 @@ const ApplicationApi = {
                 },
                 ticket: ticket.id,
                 account: objects.account.get("id"),
-                target_type: ChainTypes.ticket_type[0],
+                target_type: ChainTypes.ticket_type['liquid'],
                 extensions: [],
             });
 
             transactionBuilder.add_operation(op);
             await WalletDb.process_transaction(transactionBuilder, null, broadcast);
-            // if (!transactionBuilder.tr_buffer) {
-            //     throw "Something went wrong unlocking tickets";
-            // }
+            if (!transactionBuilder.tr_buffer) {
+                throw "Something went wrong unlocking tickets";
+            }
         }
     }
 };
