@@ -12,6 +12,7 @@ import {
 } from "tuscjs";
 import counterpart from "counterpart";
 import {Notification} from "bitshares-ui-style-guide";
+import { Apis } from "tuscjs-ws";
 
 const ApplicationApi = {
     create_account(
@@ -851,6 +852,49 @@ const ApplicationApi = {
         await WalletDb.process_transaction(transactionBuilder, null, broadcast);
         if (!transactionBuilder.tr_buffer) {
             throw "Something went finalization the transaction, this should not happen";
+        }
+    },
+
+    async getTicketsByAccount(account){
+        let tickets = await Apis.instance()
+            .db_api()
+            .exec("get_tickets_by_account", [account.get("id")])
+        return tickets
+    },
+
+    async unlockTickets(
+        account,
+        tickets,
+        broadcast = true
+    ) {
+        // account must be unlocked
+        await WalletUnlockActions.unlock();
+
+        // ensure all arguments are chain objects
+        let objects = {
+            account: await this._ensureAccount(account),
+        };
+
+        console.log("Tickets in unlock: ", tickets);
+        for(let i = 0; i < tickets.length; i++){
+            let transactionBuilder = new TransactionBuilder();
+            let ticket = tickets[i];
+            let op = transactionBuilder.get_type_operation("ticket_update", {
+                fee: {
+                    amount: 5000000,
+                    asset_id: "1.3.0"
+                },
+                ticket: ticket.id,
+                account: objects.account.get("id"),
+                target_type: ChainTypes.ticket_type['liquid'],
+                extensions: [],
+            });
+
+            transactionBuilder.add_operation(op);
+            await WalletDb.process_transaction(transactionBuilder, null, broadcast);
+            if (!transactionBuilder.tr_buffer) {
+                throw "Something went wrong unlocking tickets";
+            }
         }
     }
 };

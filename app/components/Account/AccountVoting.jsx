@@ -18,6 +18,7 @@ import Witnesses from "./Voting/Witnesses";
 import Committee from "./Voting/Committee";
 import Workers from "./Voting/Workers";
 import CreateLockModal from "../Modal/CreateLockModal";
+import UnlockModal from "../Modal/UnlockModal";
 
 const WITNESSES_KEY = "witnesses";
 const COMMITTEE_KEY = "committee";
@@ -56,6 +57,8 @@ class AccountVoting extends React.Component {
             filterSearch: "",
             isCreateLockModalVisible: false,
             isCreateLockModalVisibleBefore: false,
+            isUnlockModalVisible: false,
+            isUnlockModalVisibleBefore: false,
             tabs: [
                 {
                     name: "witnesses",
@@ -75,7 +78,9 @@ class AccountVoting extends React.Component {
                     translate: "account.votes.workers_short",
                     content: Workers
                 }
-            ]
+            ],
+            tickets: [],
+            unlockableTickets: [],
         };
 
         this.onProxyAccountFound = this.onProxyAccountFound.bind(this);
@@ -85,6 +90,8 @@ class AccountVoting extends React.Component {
 
         this.showCreateLockModal = this.showCreateLockModal.bind(this);
         this.hideCreateLockModal = this.hideCreateLockModal.bind(this);
+        this.showUnlockModal = this.showUnlockModal.bind(this);
+        this.hideUnlockModal = this.hideUnlockModal.bind(this);
     }
 
     componentWillMount() {
@@ -103,6 +110,8 @@ class AccountVoting extends React.Component {
         return (
             ns.isCreateLockModalVisible !=
                 this.state.isCreateLockModalVisible ||
+            ns.isUnlockModalVisible !=
+                    this.state.isUnlockModalVisible ||
             np.location.pathname !== this.props.location.pathname ||
             ns.prev_proxy_account_id !== this.state.prev_proxy_account_id ||
             ns.hideLegacyProposals !== this.state.hideLegacyProposals ||
@@ -124,6 +133,23 @@ class AccountVoting extends React.Component {
             this.updateAccountData(np, newState);
         }
         this.getBudgetObject();
+    }
+
+    getTickets() {
+        let tickets = ApplicationApi.getTicketsByAccount(this.props.account)
+        tickets.then(result => { 
+            this.state.tickets = result;
+            this.state.isTicketsLoaded = true;
+        });
+        console.log("state tickets: ", this.state.tickets);
+
+        const unlockableTickets = this.state.tickets
+        .filter(ticket => ticket.value > 0 &&
+            ticket.status !== 'withdrawing' &&
+            ticket.target_type !== 'lock_forever' &&
+            ticket.current_type !== 'lock_forever');
+        this.state.unlockableTickets = unlockableTickets;
+        console.log("state unlockableTickets: ", this.state.unlockableTickets);
     }
 
     updateAccountData({account}, state = this.state) {
@@ -604,6 +630,7 @@ class AccountVoting extends React.Component {
             this,
             COMMITTEE_KEY
         );
+        this.getTickets();
 
         const onTabChange = value => {
             this.props.history.push(value);
@@ -627,6 +654,25 @@ class AccountVoting extends React.Component {
                 </div>
             </Tooltip>
         );
+
+        const decrease_voting_power = (
+            <Tooltip
+                title={counterpart.translate(
+                    "account.votes.cast_votes_through_one_operation"
+                )}
+                mouseEnterDelay={0.5}
+            >
+                <div
+                    style={{
+                        float: "right"
+                    }}
+                >
+                    <Button type="primary" onClick={this.showUnlockModal}>
+                        <Translate content="voting.decrease_voting_power" />
+                    </Button>
+                </div>
+            </Tooltip>
+        );
         return (
             <div className="main-content grid-content">
                 <div className="voting">
@@ -642,6 +688,13 @@ class AccountVoting extends React.Component {
                             {increase_voting_power}
                             <Translate
                                 content="voting.ticket_explanation"
+                                component="p"
+                            />
+                        </div>
+                        <div className="ticket-row">
+                            {decrease_voting_power}
+                            <Translate
+                                content="voting.unlock_ticket_explanation"
                                 component="p"
                             />
                         </div>
@@ -723,10 +776,23 @@ class AccountVoting extends React.Component {
                         account={this.props.account}
                     />
                 )}
+                {/* Create Unlock Modal */}
+                {(this.state.isUnlockModalVisible ||
+                    this.state.isUnlockModalVisibleBefore) && (
+                    <UnlockModal
+                        visible={this.state.isUnlockModalVisible}
+                        hideModal={this.hideUnlockModal}
+                        asset={"1.3.0"}
+                        account={this.props.account}
+                        tickets={this.state.tickets}
+                        unlockableTickets={this.state.unlockableTickets}
+                    />
+                )}
             </div>
         );
     }
 
+    
     showCreateLockModal() {
         this.setState({
             isCreateLockModalVisible: true,
@@ -737,6 +803,24 @@ class AccountVoting extends React.Component {
     hideCreateLockModal() {
         this.setState({
             isCreateLockModalVisible: false
+        });
+    }
+
+    // sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
+    // async showUnlockModal() {
+    //     await this.sleep(3000);
+    showUnlockModal() {
+        console.log("First");
+        this.setState({
+            isUnlockModalVisible: true,
+            isUnlockModalVisibleBefore: true
+        });
+    }
+
+    hideUnlockModal() {
+        this.setState({
+            isUnlockModalVisible: false
         });
     }
 
