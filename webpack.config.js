@@ -245,7 +245,7 @@ module.exports = function(env) {
                   ]
         },
         output: {
-            publicPath: env.prod ? "/wallet" : "/",
+            publicPath: env.prod ? "/wallet/" : "/",
             path: outputPath,
             filename: env.prod ? "[name].[chunkhash].js" : "[name].js",
             chunkFilename: env.prod ? "[name].[chunkhash].js" : "[name].js",

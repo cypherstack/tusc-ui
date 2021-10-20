@@ -1,8 +1,8 @@
 import React from "react";
-import {ChainStore} from "tuscjs";
+import { ChainStore } from "tuscjs";
 import AccountStore from "stores/AccountStore";
 import NotificationStore from "stores/NotificationStore";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import SyncError from "./components/SyncError";
 import LoadingIndicator from "./components/LoadingIndicator";
 import BrowserNotifications from "./components/BrowserNotifications/BrowserNotificationsContainer";
@@ -15,15 +15,15 @@ import BrowserSupportModal from "./components/Modal/BrowserSupportModal";
 import Footer from "./components/Layout/Footer";
 import Deprecate from "./Deprecate";
 import Incognito from "./components/Layout/Incognito";
-import {isIncognito} from "feature_detect";
-import {updateGatewayBackers} from "common/gatewayUtils";
+import { isIncognito } from "feature_detect";
+import { updateGatewayBackers } from "common/gatewayUtils";
 import titleUtils from "common/titleUtils";
-import {BodyClassName, Notification} from "bitshares-ui-style-guide";
-import {DEFAULT_NOTIFICATION_DURATION} from "services/Notification";
+import { BodyClassName, Notification } from "bitshares-ui-style-guide";
+import { DEFAULT_NOTIFICATION_DURATION } from "services/Notification";
 import Loadable from "react-loadable";
 import NewsHeadline from "components/Layout/NewsHeadline";
 
-import {Route, Switch, Redirect} from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import config from "config/default.json";
 
@@ -159,13 +159,16 @@ import Login from "./components/Login/Login";
 import RegistrationSelector from "./components/Registration/RegistrationSelector";
 import WalletRegistration from "./components/Registration/WalletRegistration";
 import AccountRegistration from "./components/Registration/AccountRegistration";
-import {CreateWalletFromBrainkey} from "./components/Wallet/WalletCreate";
+import { CreateWalletFromBrainkey } from "./components/Wallet/WalletCreate";
 import ShowcaseGrid from "./components/Showcases/ShowcaseGrid";
 import PriceAlertNotifications from "./components/PriceAlertNotifications";
 import GatewaySelectorModal from "./components/Gateways/GatewaySelectorModal";
 import SettingsStore from "./stores/SettingsStore";
 import GatewayActions from "./actions/GatewayActions";
-import {allowedGateway} from "./branding";
+import { allowedGateway } from "./branding";
+import { createBrowserHistory } from "history";
+const history1 = createBrowserHistory();
+import ReactGA from "react-ga";
 
 class App extends React.Component {
     constructor() {
@@ -173,7 +176,7 @@ class App extends React.Component {
 
         let syncFail =
             ChainStore.subError &&
-            ChainStore.subError.message ===
+                ChainStore.subError.message ===
                 "ChainStore sync error, please check your system clock"
                 ? true
                 : false;
@@ -268,7 +271,7 @@ class App extends React.Component {
     _syncStatus(setState = false) {
         let synced = this.getBlockTimeDelta() < 5;
         if (setState && synced !== this.state.synced) {
-            this.setState({synced});
+            this.setState({ synced });
         }
         return synced;
     }
@@ -310,8 +313,8 @@ class App extends React.Component {
         this._rebuildTooltips();
 
         isIncognito(
-            function(incognito) {
-                this.setState({incognito});
+            function (incognito) {
+                this.setState({ incognito });
             }.bind(this)
         );
         GatewayActions.loadOnChainGatewayConfig();
@@ -359,10 +362,14 @@ class App extends React.Component {
         document.title = titleUtils.GetTitleByPath(
             this.props.location.pathname
         );
+        history1.listen(location => {
+            ReactGA.set({ page: location.pathname }); // Update the user's current page
+            ReactGA.pageview(location.pathname); // Record a pageview for the given page
+        });
     }
 
     _onIgnoreIncognitoWarning() {
-        this.setState({incognitoWarningDismissed: true});
+        this.setState({ incognitoWarningDismissed: true });
     }
 
     _rebuildTooltips() {
@@ -380,7 +387,7 @@ class App extends React.Component {
     _chainStoreSub() {
         let synced = this._syncStatus();
         if (synced !== this.state.synced) {
-            this.setState({synced});
+            this.setState({ synced });
         }
         if (
             ChainStore.subscribed !== this.state.synced ||
@@ -388,7 +395,7 @@ class App extends React.Component {
         ) {
             let syncFail =
                 ChainStore.subError &&
-                ChainStore.subError.message ===
+                    ChainStore.subError.message ===
                     "ChainStore sync error, please check your system clock"
                     ? true
                     : false;
@@ -409,7 +416,7 @@ class App extends React.Component {
     }
 
     _getWindowHeight() {
-        this.setState({height: window && window.innerHeight});
+        this.setState({ height: window && window.innerHeight });
     }
 
     // /** Non-static, used by passing notificationSystem via react Component refs */
@@ -419,8 +426,8 @@ class App extends React.Component {
     // }
 
     render() {
-        let {incognito, incognitoWarningDismissed} = this.state;
-        let {walletMode, theme, location, match, ...others} = this.props;
+        let { incognito, incognitoWarningDismissed } = this.state;
+        let { walletMode, theme, location, match, ...others } = this.props;
         let content = null;
 
         if (this.state.syncFail) {
@@ -436,6 +443,7 @@ class App extends React.Component {
         } else if (__DEPRECATED__) {
             content = <Deprecate {...this.props} />;
         } else {
+            const trackingId = "UA-121317055-2";
             let accountName =
                 AccountStore.getState().currentAccount ||
                 AccountStore.getState().passwordAccount;
@@ -443,6 +451,18 @@ class App extends React.Component {
                 accountName && accountName !== "null"
                     ? accountName
                     : "committee-account";
+
+            ReactGA.initialize(trackingId);
+
+            ReactGA.set({
+                userId: accountName
+            });
+
+            ReactGA.event({
+                category: "Sign Up",
+                action: "User pressed the sign up button"
+            });
+
             content = (
                 <div className="grid-frame vertical">
                     <NewsHeadline />
@@ -452,7 +472,7 @@ class App extends React.Component {
                             <Switch>
                                 <Redirect
                                     path="/"
-                                    to={{pathname: "/explorer/blocks"}}
+                                    to={{ pathname: "/explorer/blocks" }}
                                     exact
                                     component={Explorer}
                                 />
@@ -600,6 +620,7 @@ class App extends React.Component {
                     <Footer
                         synced={this.state.synced}
                         history={this.props.history}
+                        history1={history}
                     />
                     <ReactTooltip
                         ref="tooltip"
@@ -613,7 +634,7 @@ class App extends React.Component {
 
         return (
             <div
-                style={{backgroundColor: !theme ? "#2a2a2a" : null}}
+                style={{ backgroundColor: !theme ? "#2a2a2a" : null }}
                 className={theme}
             >
                 <BodyClassName className={theme}>

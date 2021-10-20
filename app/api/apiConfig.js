@@ -180,5 +180,5 @@ export const settingsAPIs = {
         }
     ],
     DEFAULT_FAUCET: getFaucet().url,
-    TESTNET_FAUCET: "http://3.135.40.183"
+    TESTNET_FAUCET: "https://faucet.tusc.network/tusc/api/wallet"
 };
