@@ -936,7 +936,9 @@
             },
             "summary": {
                 "asset_type": "Asset type",
-                "current_supply": "Current supply",
+                "current_supply": "Current supply (in circulation)",
+                "reserved_supply": "Reserved supply (to pay workers with)",
+                "max_supply": "Current maximum supply",
                 "issuer": "Asset owner",
                 "market_fee": "Market fee",
                 "market_fee_referral_reward_percent": "Market fee referral reward",
@@ -1677,7 +1679,7 @@
             "targetType": "Lock Type",
             "title": "Unlock",
             "type_warning": "Please choose a lock type.",
-            "warning_message": "Note that unlocking all assets takes time and voting power will be lost. Current unlock period would be %(lock_days)s days"
+            "warning_message": "Note that unlocking all assets takes time and voting power will be lost."
         },
         "withdraw": {
             "address": "Withdraw to Address",
