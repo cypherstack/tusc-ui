@@ -91,7 +91,7 @@ export function getUnits() {
     if (_isTestnet()) {
         return ["TEST"];
     }
-    return ["BTS", "USD", "CNY", "BTC", "EUR", "GBP"];
+    return ["TUSC", "USD", "CNY", "BTC", "EUR", "GBP"];
 }
 
 export function getDefaultMarket() {
@@ -110,7 +110,7 @@ export function getMyMarketsBases() {
     if (_isTestnet()) {
         return ["TEST"];
     }
-    return ["BTS", "BTC", "CNY", "USD", "USDT", "ETH"];
+    return ["TUSC", "BTC", "CNY", "USD", "USDT", "ETH"];
 }
 
 /**
