@@ -121,7 +121,7 @@ export const settingsAPIs = {
             location: {translate: "settings.api_closest"}
         },
         {
-            url: "wss://api.tusc.network:8443",
+            url: "wss://api.tusc.network/wallet",
             location: "Virginia",
             region: "Northern America",
             country: "U.S.A."
