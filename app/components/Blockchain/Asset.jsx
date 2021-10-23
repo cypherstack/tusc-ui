@@ -1235,6 +1235,8 @@ class Asset extends React.Component {
     // TODO: Blacklist Market: Base/Market, Base/Market
     renderPermissions(asset) {
         //var dynamic = asset.dynamic;
+        var dynamic = this.props.getDynamicObject(asset.dynamic_asset_data_id);
+        if (dynamic) dynamic = dynamic.toJS();
 
         var options = asset.options;
 
@@ -1266,19 +1268,34 @@ class Asset extends React.Component {
         ) : null;
 
         // options.max_supply initially a string
-        var maxSupply = (
+        var maxSupply = dynamic ? (
             <tr>
                 <td>
                     <Translate content="explorer.asset.permissions.max_supply" />
                 </td>
                 <td>
                     <FormattedAsset
-                        amount={+options.max_supply}
+                        amount={+dynamic.current_max_supply}
                         asset={asset.id}
                     />
                 </td>
             </tr>
-        );
+        ) : null;
+        var delta = dynamic ? (
+            <tr>
+                <td>
+                    <Translate content="explorer.asset.permissions.delta_supply" />
+                </td>
+                <td>
+                    <FormattedAsset
+                        amount={
+                            +dynamic.current_max_supply - dynamic.current_supply
+                        }
+                        asset={asset.id}
+                    />
+                </td>
+            </tr>
+        ) : null;
 
         var whiteLists = permissionBooleans["white_list"] ? (
             <div>
@@ -1357,6 +1374,7 @@ class Asset extends React.Component {
                         <tbody>
                             {maxMarketFee}
                             {maxSupply}
+                            {delta}
                         </tbody>
                     </table>
 

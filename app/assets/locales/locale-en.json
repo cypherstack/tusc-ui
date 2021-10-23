@@ -878,6 +878,7 @@
                 "blacklist_markets": "Blacklist markets",
                 "max_market_fee": "Max market fee",
                 "max_supply": "Max supply",
+                "delta_supply": "Delta supply",
                 "title": "Permissions",
                 "whitelist_authorities": "Whitelist authorities",
                 "whitelist_markets": "Whitelist markets"
@@ -1671,7 +1672,7 @@
             "remaining_volume": "Remaining settleable volume: %(amount)s %(asset)s",
             "submit": "Settle asset",
             "title": "Request settlement of %(asset)s"
-        },        
+        },
         "unlock": {
             "amount": "Amount available to unlock",
             "total_amount": "Total amount available once finished",
