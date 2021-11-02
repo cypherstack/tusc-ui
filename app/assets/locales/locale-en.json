@@ -878,6 +878,7 @@
                 "blacklist_markets": "Blacklist markets",
                 "max_market_fee": "Max market fee",
                 "max_supply": "Max supply",
+                "delta_supply": "Delta supply",
                 "title": "Permissions",
                 "whitelist_authorities": "Whitelist authorities",
                 "whitelist_markets": "Whitelist markets"
@@ -936,7 +937,9 @@
             },
             "summary": {
                 "asset_type": "Asset type",
-                "current_supply": "Current supply",
+                "current_supply": "Current supply (in circulation)",
+                "reserved_supply": "Reserved supply (to pay workers with)",
+                "max_supply": "Current maximum supply",
                 "issuer": "Asset owner",
                 "market_fee": "Market fee",
                 "market_fee_referral_reward_percent": "Market fee referral reward",
@@ -1669,7 +1672,7 @@
             "remaining_volume": "Remaining settleable volume: %(amount)s %(asset)s",
             "submit": "Settle asset",
             "title": "Request settlement of %(asset)s"
-        },        
+        },
         "unlock": {
             "amount": "Amount available to unlock",
             "total_amount": "Total amount available once finished",
@@ -1677,7 +1680,7 @@
             "targetType": "Lock Type",
             "title": "Unlock",
             "type_warning": "Please choose a lock type.",
-            "warning_message": "Note that unlocking all assets takes time and voting power will be lost. Current unlock period would be %(lock_days)s days"
+            "warning_message": "Note that unlocking all assets takes time and voting power will be lost."
         },
         "withdraw": {
             "address": "Withdraw to Address",

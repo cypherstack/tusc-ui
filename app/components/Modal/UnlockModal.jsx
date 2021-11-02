@@ -95,9 +95,9 @@ class UnlockModal extends React.Component {
         
         let unlockableBalance = 0;
         for(let i = 0; i < this.props.unlockableTickets.length; i++){
-            unlockableBalance = unlockableBalance + Number(this.props.unlockableTickets[i].amount.amount);
+            unlockableBalance = Number(unlockableBalance) + Number(this.props.unlockableTickets[i].amount.amount);
         }
-        let newBalance = currentBalance + unlockableBalance;
+        let newBalance = Number(currentBalance) + Number(unlockableBalance);
 
         return (
             <Modal
@@ -109,7 +109,6 @@ class UnlockModal extends React.Component {
                         type="primary"
                         key="submit"
                         onClick={this.onSubmit}
-                        // disabled={!this.state.isTicketsLoaded}
                     >
                         {counterpart.translate("modal.unlock.submit")}
                     </Button>,

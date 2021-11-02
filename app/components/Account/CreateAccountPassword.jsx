@@ -21,7 +21,16 @@ import CopyButton from "../Utility/CopyButton";
 import {withRouter} from "react-router-dom";
 import {scroller} from "react-scroll";
 import {Notification, Tooltip} from "bitshares-ui-style-guide";
-import AccountLoginContainer from "../Login/AccountLogin";
+import ReCAPTCHA from "react-google-recaptcha";
+import SettingsStore from "stores/SettingsStore";
+import MetaTag from "../Layout/MetaTag";
+
+function isTestNet(url) {
+    return (
+        !__TESTNET__ &&
+        (url.indexOf("testnet") !== -1 || url.indexOf("test2") !== -1)
+    );
+}
 
 class CreateAccountPassword extends React.Component {
     constructor() {
@@ -44,6 +53,7 @@ class CreateAccountPassword extends React.Component {
                 0,
                 45
             ),
+            refAcct: AccountStore.getState().referralAccount,
             confirm_password: "",
             understand_1: false,
             understand_2: false,
@@ -54,16 +64,10 @@ class CreateAccountPassword extends React.Component {
         this.accountNameInput = null;
 
         this.scrollToInput = this.scrollToInput.bind(this);
+        this.recaptchaRef = React.createRef();
     }
 
-    componentWillMount() {
-        // const script = document.createElement("script");
-
-        // script.src = "https://www.google.com/recaptcha/api.js";
-        // script.async = true;
-
-        // document.body.appendChild(script);
-
+    componentDidMount() {
         if (!WalletDb.getWallet()) {
             SettingsActions.changeSetting({
                 setting: "passwordLogin",
@@ -73,7 +77,13 @@ class CreateAccountPassword extends React.Component {
         ReactTooltip.rebuild();
         this.scrollToInput();
 
-        fetch("https://faucet.tusc.network/tusc/api/wallet/suggest_brain_key", {
+        let faucetAddress = SettingsStore.getSetting("faucet_address");
+
+        if (this.props.connectedNode && isTestNet(this.props.connectedNode)) {
+            faucetAddress = "http://3.135.40.183";
+        }
+
+        fetch(faucetAddress + "/tusc/api/wallet/suggest_brain_key", {
             method: "get",
             headers: {
                 Accept: "application/json"
@@ -220,36 +230,38 @@ class CreateAccountPassword extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         if (!this.isValid()) return;
-        let account_name = this.accountNameInput.getValue();
-        let publics_key = this.state.pub_key;
-        // if (WalletDb.getWallet()) {
-        //     this.createAccount(account_name);
-        // } else {
-        let password = this.state.wif_priv_key;
-        fetch("https://faucet.tusc.network/tusc/api/wallet/register_account", {
-            method: "post",
-            headers: {
-                Accept: "application/json",
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-                account_name: this.state.accountName,
-                public_key: this.state.pub_key
-            })
-        }).then(r =>
-            r.json().then(res => {
-                if (res && !res.error) {
-                    console.log(res.result);
-                    alert("Successfully Created!");
-                    this.props.history.push("/login");
-                } else if (!res || (res && res.error)) {
-                    alert(res.error);
-                    console.log(res.error);
-                    reject(res.error);
-                }
-            })
-        );
-        //this.createAccount(account_name, password);
+        let referralAccount = AccountStore.getState().referralAccount;
+        let faucetAddress = SettingsStore.getSetting("faucet_address");
+
+        if (this.props.connectedNode && isTestNet(this.props.connectedNode)) {
+            faucetAddress = "http://3.135.40.183";
+        }
+
+        this.recaptchaRef.current.executeAsync().then(token => {
+            fetch(faucetAddress + "/tusc/api/wallet/register_account", {
+                method: "post",
+                headers: {
+                    Accept: "application/json",
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    account_name: this.state.accountName,
+                    public_key: this.state.pub_key,
+                    recaptcha_response: token,
+                    referrer: referralAccount
+                })
+            }).then(r =>
+                r.json().then(res => {
+                    if (res && !res.error) {
+                        console.log(res.result);
+                        alert("Successfully Created!");
+                        this.props.history.push("/login");
+                    } else if (!res || (res && res.error)) {
+                        alert(res.error);
+                    }
+                })
+            );
+        });
     }
 
     onRegistrarAccountChange(registrar_account) {
@@ -636,13 +648,13 @@ class CreateAccountPassword extends React.Component {
                     content="wallet.create_account_text"
                 />
 
-                {firstAccount ? null : (
+                {/* {firstAccount ? null : (
                     <Translate
                         style={{textAlign: "left"}}
                         component="p"
                         content="wallet.not_first_account"
                     />
-                )}
+                )} */}
             </div>
         );
     }
@@ -808,6 +820,12 @@ class CreateAccountPassword extends React.Component {
                 id="scrollToInput"
                 name="scrollToInput"
             >
+                <ReCAPTCHA
+                    sitekey="6LeOYMYUAAAAADcHiQHtwC_VN7klQGLxnJr4N3x5"
+                    size="invisible"
+                    ref={this.recaptchaRef}
+                />
+                <MetaTag path="create-account/password" />
                 <div>
                     {step === 2 ? (
                         <p
@@ -845,7 +863,11 @@ export default connect(
             return [AccountStore];
         },
         getProps() {
-            return {};
+            return {
+                connectedNode: SettingsStore.getState().settings.get(
+                    "activeNode"
+                )
+            };
         }
     }
 );

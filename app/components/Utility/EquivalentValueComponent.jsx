@@ -79,9 +79,11 @@ class ValueComponent extends MarketStatsCheck {
             ...others
         } = this.props;
 
+        let toID = "1.3.0";
+        let toSymbol = "TUSC";
         if (toAsset) {
-            let toID = toAsset.get("id");
-            let toSymbol = toAsset.get("symbol");
+            toID = toAsset.get("id");
+            toSymbol = toAsset.get("symbol");
         }
 
         let eqValue = getEquivalentValue(
