@@ -8,7 +8,7 @@ It *stores all keys locally* in the browser, *never exposing your keys to anyone
 
 ## Getting started
 
-BitShares-UI depends node Node.js, and version 8+ is required.
+BitShares-UI depends node Node.js, and version 10+ is required.
 
 On Ubuntu and OSX, the easiest way to install Node is to use the [Node Version Manager](https://github.com/creationix/nvm).
 
@@ -16,8 +16,8 @@ To install NVM for Linux/OSX, simply copy paste the following in a terminal:
 
 ```
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash
-nvm install v9
-nvm use v9
+nvm install v10
+nvm use v10
 ```
 
 Once you have Node installed, you can clone the repo:
