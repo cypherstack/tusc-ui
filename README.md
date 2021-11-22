@@ -1,6 +1,5 @@
-BitShares-UI
+TUSC-UI
 ============
-[中文版](README_zh.md)
 
 This is a light wallet that connects to a TUSC API provided by the *witness_node* executable.
 
@@ -88,12 +87,4 @@ Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 
 **Please keep comments constructive and clean**
 
-## BrowserStack 
-
-The BitShares UI is integrated with BrowserStack (https://www.browserstack.com) to allow manual compatibility testing across devices and browser versions. In the future we will switch to a automated Selenium testing framework.
-![image](https://user-images.githubusercontent.com/33128181/48697885-05f8d880-ebe6-11e8-95a2-d87516cbb3d9.png)
-
-### Main(stable)
-
 Available for browsing on https://wallet.tusc.network/wallet/, which is the official reference wallet for TUSC.
-
